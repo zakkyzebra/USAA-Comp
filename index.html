@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+		* {
+		    box-sizing: border-box;
+		}
+		[class*="col-"] {
+			float: left;
+			padding: 15px;
+		}
+		.row {
+		  display: flex;
+		}
+
+		.col {
+		  flex: 1;
+		  
+		  padding: 1em;
+		  border: solid;
+		}
+		.row::after {
+			content: "";
+			clear: both;
+			display: table;
+		}
+
+		body{
+		  margin: 0;
+		  padding: 0;
+		  font-family: "Avenir Next", "Avenir", sans-serif;
+		  background-color: #FFFFFF;
+		}
+		.get-started{
+			background-color: #072d4b;
+			 color: #FFFFFF; 
+			 border-radius: 2px; 
+			 margin-bottom: 10px;
+			 padding: 20px;
+		}
+		.active{
+			background-color: #00618F; 
+			height: 5px;
+		}
+		.unactive{
+			background-color: #E1DFDD; 
+			height: 5px;
+		}
+		.info-block{
+			background-color: #00617B; 
+			color: #FFFFFF; 
+			text-align: center; 
+			padding: 10px 5px 10px 5px; 
+			margin: 5px;
+		}
+		.drop-down{
+			background-color: #FFFFFF;
+			color: #358FB1;
+			padding: 8px 5px 8px 5px; 
+			margin: 5px 0 5px 0;
+		}
+		.chevron-down{
+		    /* Rotate div */
+		    -ms-transform: rotate(90deg); /* IE 9 */
+		    -webkit-transform: rotate(90deg); /* Safari 3-8 */
+		    transform: rotate(90deg);
+		    float: right;
+		    margin-right: 10px;
+		    cursor: pointer;
+		}
+		.chevron-up{
+		    /* Rotate div */
+		    -ms-transform: rotate(270deg); /* IE 9 */
+		    -webkit-transform: rotate(270deg); /* Safari 3-8 */
+		    transform: rotate(270deg);
+		    float: right;
+		    margin-right: 10px;
+		    cursor: pointer;
+		}
+		.hiding{
+			display:none;
+		}
+		.showing{
+			display: block;
+		}
+
+		/* The Modal (background) */
+		.modal {
+		    display: none; 
+		    position: fixed;
+		    z-index: 1;
+		    padding-top: 100px;
+		    left: 0;
+		    top: 0;
+		    width: 100%; 
+		    height: 100%;
+		    overflow: auto;
+		    background-color: rgb(0,0,0);
+		    background-color: rgba(0,0,0,0.4); 
+		}
+
+		/* Modal Content */
+		.modal-content {
+		    background-color: #fefefe;
+		    margin: auto;
+		    padding: 70px;
+		    border: 1px solid #888;
+		    width: 90%;
+		}
+
+		.close {
+		    color: #aaaaaa;
+		    float: right;
+		    font-size: 14px;
+		}
+
+		.close:hover,
+		.close:focus {
+		    color: #000;
+		    text-decoration: none;
+		    cursor: pointer;
+		}
+
+		.visible {
+		  visibility: visible;
+		  opacity: 1;
+		  transition: opacity 1s linear;
+		}
+		.hidden {
+		  visibility: hidden;
+		  opacity: 0;
+		  transition: visibility 0s 1s, opacity 1s linear;
+		}
+
+
+		#mobile{
+			display: block;
+		}
+		#desktop{
+			display: none;
+		}
+		#tablet-intro{
+			display: none;
+		}
+		#desktop-intro{
+			display:none;
+		}
+		.col-1 {width: 8.33%;}
+		.col-2 {width: 16.66%;}
+		.col-3 {width: 25%;}
+		.col-4 {width: 33.33%;}
+		.col-5 {width: 41.66%;}
+		.col-6 {width: 50%;}
+		.col-7 {width: 58.33%;}
+		.col-8 {width: 66.66%;}
+		.col-9 {width: 75%;}
+		.col-10 {width: 83.33%;}
+		.col-11 {width: 91.66%;}
+		.col-12 {width: 100%;}
+		@media only screen and (min-width: 768px) {
+
+			#tablet-intro{
+				display: block;
+			}
+			#desktop-intro{
+				display: none;
+			}
+
+			#desktop{
+				display: block;
+			}
+			#mobile{
+				display: none;
+			}
+			.col-1 {width: 8.33%;}
+			.col-2 {width: 16.66%;}
+			.col-3 {width: 25%;}
+			.col-4 {width: 33.33%;}
+			.col-5 {width: 41.66%;}
+			.col-6 {width: 50%;}
+			.col-7 {width: 58.33%;}
+			.col-8 {width: 66.66%;}
+			.col-9 {width: 75%;}
+			.col-10 {width: 83.33%;}
+			.col-11 {width: 91.66%;}
+			.col-12 {width: 100%;}
+		}
+		@media only screen and (min-width: 1024px) {
+			.body{
+				background-color: #CFCECD;
+			}
+			#desktop{
+				display: block;
+			}
+			#mobile{
+				display: none;
+			}
+			#tablet-intro{
+				display: none;
+			}
+			#desktop-intro{
+				display: block;
+			}
+			.col-1 {width: 8.33%;}
+			.col-2 {width: 16.66%;}
+			.col-3 {width: 25%;}
+			.col-4 {width: 33.33%;}
+			.col-5 {width: 41.66%;}
+			.col-6 {width: 50%;}
+			.col-7 {width: 58.33%;}
+			.col-8 {width: 66.66%;}
+			.col-9 {width: 75%;}
+			.col-10 {width: 83.33%;}
+			.col-11 {width: 91.66%;}
+			.col-12 {width: 100%;}
+		}
+
+	</style>
+</head>
+<body>
+
+	<div id="mobile" class="row hiding">
+		<div class="col-12" style="background-color: #072d4b; text-align:center;">
+			<h3 style="color: #DBB328; font-weight: 400">INTERDUM ET MALESUADA</h3>
+			<h1 style="color: #FFFFFF;">DONEC AT EUISMOD</h1>
+			<p style="color: #FFFFFF;">Etiam nec odio gravida, viverra nulla et, gravida ante</p>
+			<button class="get-started"> Get Started </button>
+		</div>
+		<div class="col-12">
+			<div onClick="showPage1()" class="col-6" style="text-align: center;">
+				<p>VIVAMUS MATTIS</p>
+				<div id="page-1" class="active"></div>
+			</div>
+			<div onClick="showPage2()" class="col-6" style="text-align: center;">
+				<p>ULTRICIES TURPIS</p>
+				<div id="page-2" class="unactive"></div>
+			</div>
+		</div>
+		<div id="full-page-1" class="visible">
+			<div class="col-12">
+				<p style="color: #03204F; font-weight: 600;">Donec tempor arcu id leo cursus placerat.</p>
+			</div>
+			<div class="col-12">
+				<div class="info-block">
+					<p>Lorem ipsum dolor sit amet, consectetur adipscing elit. Nam ut magna nec lectus maximus grabida.</p>
+				</div>
+				<div class="info-block">
+					<p>Lorem ipsum dolor sit amet, consectetur adipscing elit. Nam ut magna nec lectus maximus grabida.</p>
+				</div>
+				<div class="info-block">
+					<p>Lorem ipsum dolor sit amet, consectetur adipscing elit. Nam ut magna nec lectus maximus grabida.</p>
+				</div>
+				<div class="info-block">
+					<p>Lorem ipsum dolor sit amet, consectetur adipscing elit. Nam ut magna nec lectus maximus grabida.</p>
+				</div>
+			</div>
+		</div>
+		<div id="full-page-2" class="hidden">
+			<div class="col-12" style="margin-top: -600px;">
+				<h2 style="color:000E4C">Nunc egestas tellus a auctor efficitur.</h2>
+				<p>Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. <a id="myBtn" href="#">Lorem ipsum.</a> Lorem ipsum. Lorem ipsum. </p>
+			</div>
+			<div class="col-12" style="margin-top: -300px;">
+				<h2 style="color:000E4C">Nunc egestas tellus a auctor efficitur.</h2>
+				<p>Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. </p>
+			</div>
+		</div>
+		<div class="col-12" style="background-color: #E0DEDC; padding-bottom: 30px;">
+			<p style="text-align: center;">Fusce ut eleifend eros</p>
+
+			<div class="drop-down">
+				Orci varius
+				<div class="chevron-down">
+					<img id="chevron-1" onclick="rotateChevron1()" src="Images/Media/arrow-right-wide-green.svg">
+				</div>
+				<p id="chevron-text-1" class="hiding" style="color: #000000;">Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum </p>
+			</div>
+
+			<div class="drop-down">
+				sagittis elementum
+				<div class="chevron-down">
+					<img id="chevron-2" onclick="rotateChevron2()" src="Images/Media/arrow-right-wide-green.svg">
+				</div>
+				<p  id="chevron-text-2" class="hiding" style="color: #000000;">Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum </p>
+			</div>
+			<div class="drop-down">
+				posuere cubilia
+				<div class="chevron-down">
+					<img id="chevron-3" onclick="rotateChevron3()" src="Images/Media/arrow-right-wide-green.svg">
+				</div>
+				<p  id="chevron-text-3" class="hiding" style="color: #000000;">Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum </p>
+			</div>
+		</div>
+		<div class="col-12" style="background-color: #072d4b; text-align:center;">
+			<h1 style="color: #FFFFFF;">Praesent turpis lectus, ultricies ac felis eget</h1>
+			<button class="get-started"> Get Started </button>
+		</div>
+	</div>
+
+	<div id="desktop" class="row showing" style="width: 80%; margin-left:auto; margin-right: auto;">
+		<div id="tablet-intro">
+			<div class="col-12" style="background-color: #072d4b; text-align:center;">
+				<h3 style="color: #DBB328; font-weight: 400">INTERDUM ET MALESUADA</h3>
+				<h1 style="color: #FFFFFF;">DONEC AT EUISMOD</h1>
+				<p style="color: #FFFFFF;">Etiam nec odio gravida, viverra nulla et, gravida ante</p>
+				<button class="get-started"> Get Started </button>
+			</div>
+		</div>
+		<div id="desktop-intro" style="">
+			<div class="col-6" style="background-color: #072d4b; text-align:center;">
+				<h3 style="color: #DBB328; font-weight: 400">INTERDUM ET MALESUADA</h3>
+				<h1 style="color: #FFFFFF;">DONEC AT EUISMOD</h1>
+				<p style="color: #FFFFFF;">Etiam nec odio gravida, viverra nulla et, gravida ante</p>
+				<button class="get-started"> Get Started </button>
+			</div>
+			<div class="col-6" style="padding: 0;">
+				<img src="Images/Media/banner-image.jpg" style="width: auto; height: 100%; max-height: 264.59px; display: block; margin: auto;">
+			</div>
+		</div>
+		<div class="col-12">
+			<div onClick="showDesktopPage1()" class="col-6" style="text-align: center;">
+				<p>VIVAMUS MATTIS</p>
+				<div id="desktop-page-1" class="active"></div>
+			</div>
+			<div onClick="showDesktopPage2()" class="col-6" style="text-align: center;">
+				<p>ULTRICIES TURPIS</p>
+				<div id="desktop-page-2" class="unactive"></div>
+			</div>
+		</div>
+		<div id="full-desktop-page-1" class="visible">
+			<div class="col-12">
+				<p style="color: #03204F; font-weight: 600;">Donec tempor arcu id leo cursus placerat.</p>
+			</div>
+			<div class="col-12">
+				<div class="row">
+					<div class="info-block col-6">
+						<p>Lorem ipsum dolor sit amet, consectetur adipscing elit. Nam ut magna nec lectus maximus grabida.</p>
+					</div>
+					<div class="info-block col-6">
+						<p>Lorem ipsum dolor sit amet, consectetur adipscing elit. Nam ut magna nec lectus maximus grabida.</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="info-block col-6">
+						<p>Lorem ipsum dolor sit amet, consectetur adipscing elit. Nam ut magna nec lectus maximus grabida.</p>
+					</div>
+					<div class="info-block col-6">
+						<p>Lorem ipsum dolor sit amet, consectetur adipscing elit. Nam ut magna nec lectus maximus grabida.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="full-desktop-page-2" class="hidden">
+			<div class="col-12" style="margin-top: -350px">
+				<h2 style="color:000E4C">Nunc egestas tellus a auctor efficitur.</h2>
+				<p>Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. <a id="myDesktopBtn" href="#">Lorem ipsum.</a> Lorem ipsum. Lorem ipsum. </p>
+			</div>
+			<div class="col-12" style="margin-top: -150px">
+				<h2 style="color:000E4C">Nunc egestas tellus a auctor efficitur.</h2>
+				<p>Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. </p>
+			</div>
+		</div>
+		<div class="col-12" style="background-color: #E0DEDC; padding-bottom: 30px;">
+			<p style="text-align: center;">Fusce ut eleifend eros</p>
+
+			<div class="drop-down">
+				Orci varius
+				<div class="chevron-down">
+					<img id="desktop-chevron-1" onclick="rotateChevron1()" src="Images/Media/arrow-right-wide-green.svg">
+				</div>
+				<p class="hiding" id="desktop-chevron-text-1" style="color: #000000;">Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum </p>
+			</div>
+			<div class="drop-down">
+				sagittis elementum
+				<div class="chevron-down">
+					<img id="desktop-chevron-2" onclick="rotateChevron2()" src="Images/Media/arrow-right-wide-green.svg">
+				</div>
+				<p class="hiding" id="desktop-chevron-text-2" style="color: #000000;">Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum </p>
+			</div>
+			<div class="drop-down">
+				Lorem elementum
+				<div class="chevron-down">
+					<img id="desktop-chevron-3" onclick="rotateChevron3()" src="Images/Media/arrow-right-wide-green.svg">
+				</div>
+				<p class="hiding" id="desktop-chevron-text-3" style="color: #000000;">Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum </p>
+			</div>
+		</div>
+		<div class="col-12" style="background-color: #072d4b; text-align:center;">
+			<h1 style="color: #FFFFFF;">Praesent turpis lectus, ultricies ac felis eget</h1>
+			<button class="get-started"> Get Started </button>
+		</div>
+	</div>
+
+
+	<!-- The Modal -->
+	<div id="myModal" class="modal">
+
+	  <!-- Modal content -->
+	  <div class="modal-content">
+	  	<h1 style="text-align:center;">Modal Title <span class="close">Close</span></h1>
+	  	<hr>
+	    
+	    <p style="text-align: center;">Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem</p>
+	    <hr>
+	    <div class="col-6">
+	    	<button style="padding: 10px; background-color: #F0EFED; color: #000000;">Cancel</button>
+    	</div>
+	    <div class="col-6" style="text-align:right;">
+	    	<button style="padding: 10px; background-color: #43732C; color: #FFFFFF;" class="Submit">Submit</button>
+    	</div>
+	  </div>
+
+	</div>
+
+	<script type="text/javascript">
+		function showPage1(){
+			var page1 = document.getElementById('page-1');
+			var page2 = document.getElementById('page-2');
+			var fullPage1 = document.getElementById('full-page-1');
+			var fullPage2 = document.getElementById('full-page-2');
+			page1.classList.add("active");
+			page1.classList.remove("unactive");
+			page2.classList.add("unactive");
+			page2.classList.remove("active");
+			fullPage1.classList.add("visible");
+			fullPage1.classList.remove("hidden");
+			fullPage2.classList.add("hidden");
+			fullPage2.classList.remove("visible");
+
+		}
+		function showPage2(){
+			var page1 = document.getElementById('page-1');
+			var page2 = document.getElementById('page-2');
+			var fullPage1 = document.getElementById('full-page-1');
+			var fullPage2 = document.getElementById('full-page-2');
+			page1.classList.add("unactive");
+			page1.classList.remove("active");
+			page2.classList.add("active");
+			page2.classList.remove("unactive");
+			fullPage1.classList.add("hidden");
+			fullPage1.classList.remove("visible");
+			fullPage2.classList.add("visible");
+			fullPage2.classList.remove("hidden");
+		}
+		function showDesktopPage1(){
+			var page1 = document.getElementById('desktop-page-1');
+			var page2 = document.getElementById('desktop-page-2');
+			var fullPage1 = document.getElementById('full-desktop-page-1');
+			var fullPage2 = document.getElementById('full-desktop-page-2');
+			page1.classList.add("active");
+			page1.classList.remove("unactive");
+			page2.classList.add("unactive");
+			page2.classList.remove("active");
+			fullPage1.classList.add("visible");
+			fullPage1.classList.remove("hidden");
+			fullPage2.classList.add("hidden");
+			fullPage2.classList.remove("visible");
+		}
+		function showDesktopPage2(){
+			var page1 = document.getElementById('desktop-page-1');
+			var page2 = document.getElementById('desktop-page-2');
+			var fullPage1 = document.getElementById('full-desktop-page-1');
+			var fullPage2 = document.getElementById('full-desktop-page-2');
+			page1.classList.add("unactive");
+			page1.classList.remove("active");
+			page2.classList.add("active");
+			page2.classList.remove("unactive");
+			fullPage1.classList.add("hidden");
+			fullPage1.classList.remove("visible");
+			fullPage2.classList.add("visible");
+			fullPage2.classList.remove("hidden");
+		}
+		function rotateChevron1() {
+		  var chevron = document.getElementById("chevron-1").parentElement;
+		  var desktopChevron = document.getElementById("desktop-chevron-1").parentElement;
+		  var chevronText = document.getElementById("chevron-text-1");
+		  var desktopChevronText = document.getElementById("desktop-chevron-text-1");
+		  if(chevron.hasAttribute("class", "chevron-down") || desktopChevron.hasAttribute("class", "chevron-down")){
+			chevron.classList.add('chevron-up');
+			chevron.classList.remove('chevron-down');
+			chevronText.classList.remove('hiding');
+			chevronText.classList.add('showing');
+			desktopChevron.classList.add('chevron-up');
+			desktopChevron.classList.remove('chevron-down');
+			desktopChevronText.classList.remove('hiding');
+			desktopChevronText.classList.add('showing');
+
+		  }
+		  else if(chevron.hasAttribute("class", "chevron-up") || desktopChevron.hasAttribute("class", "chevron-up")){
+			chevron.classList.remove('chevron-up');
+			chevron.classList.add('chevron-down');
+			chevronText.classList.remove('showing');
+			chevronText.classList.add('hiding');
+			desktopChevron.classList.remove('chevron-up');
+			desktopChevron.classList.add('chevron-down');
+			desktopChevronText.classList.remove('showing');
+			desktopChevronText.classList.add('hiding');
+		  }
+
+		}
+		function rotateChevron2() {
+		  var chevron = document.getElementById("chevron-2").parentElement;
+		  var desktopChevron = document.getElementById("desktop-chevron-2").parentElement;
+		  var chevronText = document.getElementById("chevron-text-2");
+		  var desktopChevronText = document.getElementById("desktop-chevron-text-2");
+		  if(chevron.hasAttribute("class", "chevron-down") || desktopChevron.hasAttribute("class", "chevron-down")){
+			chevron.classList.add('chevron-up');
+			chevron.classList.remove('chevron-down');
+			chevronText.classList.remove('hiding');
+			chevronText.classList.add('showing');
+			desktopChevron.classList.add('chevron-up');
+			desktopChevron.classList.remove('chevron-down');
+			desktopChevronText.classList.remove('hiding');
+			desktopChevronText.classList.add('showing');
+		  }
+		  else if(chevron.hasAttribute("class", "chevron-up") || desktopChevron.hasAttribute("class", "chevron-up")){
+			chevron.classList.remove('chevron-up');
+			chevron.classList.add('chevron-down');
+			chevronText.classList.remove('showing');
+			chevronText.classList.add('hiding');
+			desktopChevron.classList.remove('chevron-up');
+			desktopChevron.classList.add('chevron-down');
+			desktopChevronText.classList.remove('showing');
+			desktopChevronText.classList.add('hiding');
+		  }
+
+		}
+		function rotateChevron3() {
+		  var chevron = document.getElementById("chevron-3").parentElement;
+		  var desktopChevron = document.getElementById("desktop-chevron-3").parentElement;
+		  var chevronText = document.getElementById("chevron-text-3");
+		  var desktopChevronText = document.getElementById("desktop-chevron-text-3");
+		  if(chevron.hasAttribute("class", "chevron-down") || desktopChevron.hasAttribute("class", "chevron-down")){
+			chevron.classList.add('chevron-up');
+			chevron.classList.remove('chevron-down');
+			chevronText.classList.remove('hiding');
+			chevronText.classList.add('showing');
+			desktopChevron.classList.add('chevron-up');
+			desktopChevron.classList.remove('chevron-down');
+			desktopChevronText.classList.remove('hiding');
+			desktopChevronText.classList.add('showing');
+		  }
+		  else if(chevron.hasAttribute("class", "chevron-up") || desktopChevron.hasAttribute("class", "chevron-up")){
+			chevron.classList.remove('chevron-up');
+			chevron.classList.add('chevron-down');
+			chevronText.classList.remove('showing');
+			chevronText.classList.add('hiding');
+			desktopChevron.classList.remove('chevron-up');
+			desktopChevron.classList.add('chevron-down');
+			desktopChevronText.classList.remove('showing');
+			desktopChevronText.classList.add('hiding');
+		  }
+		}
+
+		var modal = document.getElementById('myModal');
+		var btn = document.getElementById("myBtn");
+		var desktopBtn = document.getElementById("myDesktopBtn");
+		var span = document.getElementsByClassName("close")[0];
+
+		btn.onclick = function() {
+		    modal.style.display = "block";
+		}
+		desktopBtn.onclick = function() {
+		    modal.style.display = "block";
+		}
+
+		span.onclick = function() {
+		    modal.style.display = "none";
+		}
+
+		window.onclick = function(event) {
+		    if (event.target == modal) {
+		        modal.style.display = "none";
+		    }
+		}
+
+		
+	</script>
+</body>	
+
+</html>
